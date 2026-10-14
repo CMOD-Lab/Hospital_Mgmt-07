@@ -326,6 +326,12 @@
               "target": "Package",
               "version": "[4.20.70, )"
             },
+            "coverlet.msbuild": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.1.0, )"
+            },
             "xunit": {
               "target": "Package",
               "version": "[2.6.6, )"

@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "3kAuj9QAWVM=",
+  "success": true,
+  "projectFilePath": "/modernize-data/studio-data/TNT1001/APP283573/transformed-code/124/studio-workspace/HospitalMgmntVanitha/Code/DBProject/src/ClinicManagement.Application/ClinicManagement.Application.csproj",
+  "expectedPackageFiles": [
+    "/app/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.0/microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "/app/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.0/microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+    "/app/.nuget/packages/microsoft.netcore.app.ref/8.0.30/microsoft.netcore.app.ref.8.0.30.nupkg.sha512",
+    "/app/.nuget/packages/microsoft.aspnetcore.app.ref/8.0.30/microsoft.aspnetcore.app.ref.8.0.30.nupkg.sha512"
+  ],
+  "logs": []
+}

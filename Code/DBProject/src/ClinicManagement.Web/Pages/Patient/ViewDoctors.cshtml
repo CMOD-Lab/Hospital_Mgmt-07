@@ -1,0 +1,65 @@
+@page
+@model ClinicManagement.Web.Pages.Patient.ViewDoctorsModel
+@{
+    ViewData["Title"] = "View Doctors";
+    Layout = "_PatientLayout";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-user-md"></i> View Doctors</h2>
+        <hr />
+    </div>
+</div>
+
+<!-- Department Selection -->
+<div class="card shadow mb-4">
+    <div class="card-header">
+        <h5><i class="fas fa-building"></i> Select Department</h5>
+    </div>
+    <div class="card-body">
+        <form method="get">
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <select name="deptName" class="form-select" onchange="this.form.submit()">
+                        <option value="">All Departments</option>
+                        @foreach (var dept in Model.Departments)
+                        {
+                            <option value="@dept.DeptName" selected="@(Model.SelectedDept == dept.DeptName)">
+                                @dept.DeptName
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Doctors List -->
+<div class="row">
+    @foreach (var doctor in Model.Doctors)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card shadow h-100">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-md fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">@doctor.Name</h5>
+                    <p class="text-muted">@doctor.Department</p>
+                    <a href="/Patient/DoctorProfile?doctorId=@doctor.DoctorId" class="btn btn-primary btn-sm">
+                        <i class="fas fa-eye"></i> View Profile
+                    </a>
+                    <a href="/Patient/TakeAppointment?doctorId=@doctor.DoctorId" class="btn btn-success btn-sm">
+                        <i class="fas fa-calendar-plus"></i> Book
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+    @if (!Model.Doctors.Any())
+    {
+        <div class="col-12">
+            <p class="text-muted text-center">No doctors found.</p>
+        </div>
+    }
+</div>

@@ -1,0 +1,68 @@
+@page
+@model ClinicManagement.Web.Pages.Doctor.BillModel
+@{
+    ViewData["Title"] = "Generate Bill";
+    Layout = "_DoctorLayout";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-file-invoice"></i> Generate Bill</h2>
+        <hr />
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-@(Model.Success ? "success" : "danger") alert-dismissible fade show">
+        @Model.Message
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+}
+
+<div class="card shadow">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Patient</th>
+                        <th>Date</th>
+                        <th>Disease</th>
+                        <th>Amount</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var appt in Model.TodaysAppointments)
+                    {
+                        <tr>
+                            <td>@appt.PatientName</td>
+                            <td>@appt.Date?.ToString("yyyy-MM-dd")</td>
+                            <td>@appt.Disease</td>
+                            <td>$@appt.BillAmount?.ToString("N2")</td>
+                            <td>
+                                <form method="post" asp-page-handler="MarkPaid" style="display:inline;">
+                                    <input type="hidden" name="appointmentId" value="@appt.AppointId" />
+                                    <button type="submit" class="btn btn-success btn-sm">
+                                        <i class="fas fa-check"></i> Paid
+                                    </button>
+                                </form>
+                                <form method="post" asp-page-handler="MarkUnpaid" style="display:inline;">
+                                    <input type="hidden" name="appointmentId" value="@appt.AppointId" />
+                                    <button type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-times"></i> Unpaid
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                    @if (!Model.TodaysAppointments.Any())
+                    {
+                        <tr><td colspan="5" class="text-center text-muted">No appointments to bill today.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

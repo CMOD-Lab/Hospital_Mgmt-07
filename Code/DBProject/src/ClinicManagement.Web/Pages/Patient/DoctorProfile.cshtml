@@ -1,0 +1,64 @@
+@page
+@model ClinicManagement.Web.Pages.Patient.DoctorProfileModel
+@{
+    ViewData["Title"] = "Doctor Profile";
+    Layout = "_PatientLayout";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-user-md"></i> Doctor Profile</h2>
+        <hr />
+    </div>
+</div>
+
+@if (Model.Doctor != null)
+{
+    <div class="card shadow">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <i class="fas fa-user-md fa-5x text-primary mb-3"></i>
+                    <h4>@Model.Doctor.Name</h4>
+                    <p class="text-muted">@Model.Doctor.Department</p>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr><th>Phone:</th><td>@Model.Doctor.Phone</td></tr>
+                                <tr><th>Gender:</th><td>@(Model.Doctor.Gender == "M" ? "Male" : "Female")</td></tr>
+                                <tr><th>Age:</th><td>@Model.Doctor.Age years</td></tr>
+                                <tr><th>Work Experience:</th><td>@Model.Doctor.WorkExperience years</td></tr>
+                            </table>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table table-borderless">
+                                <tr><th>Charges/Visit:</th><td>$@Model.Doctor.ChargesPerVisit</td></tr>
+                                <tr><th>Repute Index:</th><td>@Model.Doctor.ReputeIndex.ToString("F1")</td></tr>
+                                <tr><th>Patients Treated:</th><td>@Model.Doctor.PatientsTreated</td></tr>
+                                <tr><th>Qualification:</th><td>@Model.Doctor.Qualification</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <p><strong>Specialization:</strong> @Model.Doctor.Specialization</p>
+                    <div class="mt-3">
+                        <a href="/Patient/TakeAppointment?doctorId=@Model.Doctor.DoctorId" class="btn btn-success">
+                            <i class="fas fa-calendar-plus"></i> Book Appointment
+                        </a>
+                        <a href="/Patient/ViewDoctors" class="btn btn-secondary ms-2">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="alert alert-warning">Doctor not found.</div>
+    <a href="/Patient/ViewDoctors" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Doctors
+    </a>
+}

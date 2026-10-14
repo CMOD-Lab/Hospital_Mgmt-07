@@ -1,0 +1,64 @@
+@page
+@model ClinicManagement.Web.Pages.Doctor.DoctorHomeModel
+@{
+    ViewData["Title"] = "Doctor Home";
+    Layout = "_DoctorLayout";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-home"></i> Welcome, Dr. @Model.DoctorInfo?.Name!</h2>
+        <hr />
+    </div>
+</div>
+
+@if (Model.DoctorInfo != null)
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5><i class="fas fa-user-md"></i> Doctor Information</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr><th>Name:</th><td>Dr. @Model.DoctorInfo.Name</td></tr>
+                        <tr><th>Department:</th><td>@Model.DoctorInfo.Department</td></tr>
+                        <tr><th>Specialization:</th><td>@Model.DoctorInfo.Specialization</td></tr>
+                        <tr><th>Qualification:</th><td>@Model.DoctorInfo.Qualification</td></tr>
+                        <tr><th>Phone:</th><td>@Model.DoctorInfo.Phone</td></tr>
+                        <tr><th>Charges/Visit:</th><td>$@Model.DoctorInfo.ChargesPerVisit</td></tr>
+                        <tr><th>Patients Treated:</th><td>@Model.DoctorInfo.PatientsTreated</td></tr>
+                        <tr><th>Repute Index:</th><td>@Model.DoctorInfo.ReputeIndex.ToString("F1")</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow mb-3">
+                <div class="card-header bg-warning">
+                    <h5><i class="fas fa-clock"></i> Today's Appointments</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.TodaysAppointments.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var appt in Model.TodaysAppointments)
+                            {
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>@appt.PatientName</span>
+                                    <span class="text-muted">@appt.Timings</span>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No appointments today.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

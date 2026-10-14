@@ -1,0 +1,77 @@
+@page
+@model ClinicManagement.Web.Pages.Patient.PatientHomeModel
+@{
+    ViewData["Title"] = "Patient Home";
+    Layout = "_PatientLayout";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-home"></i> Welcome, @Model.PatientInfo?.Name!</h2>
+        <hr />
+    </div>
+</div>
+
+@if (Model.PatientInfo != null)
+{
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5><i class="fas fa-user"></i> Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th>Name:</th>
+                            <td>@Model.PatientInfo.Name</td>
+                        </tr>
+                        <tr>
+                            <th>Phone:</th>
+                            <td>@Model.PatientInfo.Phone</td>
+                        </tr>
+                        <tr>
+                            <th>Address:</th>
+                            <td>@Model.PatientInfo.Address</td>
+                        </tr>
+                        <tr>
+                            <th>Birth Date:</th>
+                            <td>@Model.PatientInfo.BirthDate</td>
+                        </tr>
+                        <tr>
+                            <th>Age:</th>
+                            <td>@Model.PatientInfo.Age years</td>
+                        </tr>
+                        <tr>
+                            <th>Gender:</th>
+                            <td>@(Model.PatientInfo.Gender == "M" ? "Male" : "Female")</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5><i class="fas fa-calendar-check"></i> Current Appointment</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.CurrentAppointment != null)
+                    {
+                        <p><strong>Doctor:</strong> @Model.CurrentAppointment.DoctorName</p>
+                        <p><strong>Time:</strong> @Model.CurrentAppointment.Timings</p>
+                        <p><strong>Date:</strong> @Model.CurrentAppointment.Date?.ToString("yyyy-MM-dd")</p>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No appointment scheduled for today.</p>
+                        <a href="/Patient/ViewDoctors" class="btn btn-primary btn-sm">
+                            <i class="fas fa-calendar-plus"></i> Book Appointment
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}

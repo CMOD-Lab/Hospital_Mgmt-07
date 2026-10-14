@@ -1,0 +1,79 @@
+@page
+@model ClinicManagement.Web.Pages.Patient.TakeAppointmentModel
+@{
+    ViewData["Title"] = "Take Appointment";
+    Layout = "_PatientLayout";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-calendar-plus"></i> Book Appointment</h2>
+        <hr />
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-@(Model.Success ? "success" : "danger")">@Model.Message</div>
+}
+
+@if (Model.Doctor != null)
+{
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5>Doctor: @Model.Doctor.Name - @Model.Doctor.Department</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Charges Per Visit:</strong> $@Model.Doctor.ChargesPerVisit</p>
+            <p><strong>Specialization:</strong> @Model.Doctor.Specialization</p>
+        </div>
+    </div>
+
+    @if (Model.FreeSlots.Any())
+    {
+        <div class="card shadow">
+            <div class="card-header">
+                <h5><i class="fas fa-clock"></i> Available Slots</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    <input type="hidden" name="doctorId" value="@Model.DoctorId" />
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Select</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var slot in Model.FreeSlots)
+                                {
+                                    <tr>
+                                        <td>
+                                            <input type="radio" name="freeSlotId" value="@slot.AppointId" required />
+                                        </td>
+                                        <td>@slot.Date?.ToString("yyyy-MM-dd")</td>
+                                        <td>@slot.Timings</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-check"></i> Book Appointment
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info">No available slots for this doctor at the moment.</div>
+    }
+}
+
+<a href="/Patient/ViewDoctors" class="btn btn-secondary mt-3">
+    <i class="fas fa-arrow-left"></i> Back to Doctors
+</a>

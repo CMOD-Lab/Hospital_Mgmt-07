@@ -1,0 +1,52 @@
+@page
+@model ClinicManagement.Web.Pages.Doctor.HistoryUpdateModel
+@{
+    ViewData["Title"] = "Update History";
+    Layout = "_DoctorLayout";
+}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h2><i class="fas fa-edit"></i> Update Patient History</h2>
+        <hr />
+    </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-@(Model.Success ? "success" : "danger")">@Model.Message</div>
+}
+
+@if (Model.Appointment != null)
+{
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h5>Patient: @Model.Appointment.PatientName</h5>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                <input type="hidden" name="appointmentId" value="@Model.Appointment.AppointId" />
+                <div class="mb-3">
+                    <label class="form-label">Disease</label>
+                    <input type="text" name="disease" value="@Model.Appointment.Disease" class="form-control" maxlength="100" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Progress</label>
+                    <input type="text" name="progress" value="@Model.Appointment.Progress" class="form-control" maxlength="100" />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Prescription</label>
+                    <input type="text" name="prescription" value="@Model.Appointment.Prescription" class="form-control" maxlength="100" />
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Update
+                    </button>
+                    <a href="/Doctor/PatientHistory" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+}

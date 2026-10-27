@@ -12,14 +12,18 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
-        // Register EF Core DbContext
+        // Configure PostgreSQL timestamp behavior for DateTime compatibility
+        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+        // Register EF Core DbContext with PostgreSQL provider
         services.AddDbContext<ClinicDbContext>(options =>
-            options.UseSqlServer(
+            options.UseNpgsql(
                 configuration.GetConnectionString("DefaultConnection"),
-                sqlOptions => sqlOptions.EnableRetryOnFailure(
+                npgsqlOptions => npgsqlOptions.EnableRetryOnFailure(
                     maxRetryCount: 3,
                     maxRetryDelay: TimeSpan.FromSeconds(30),
-                    errorNumbersToAdd: null)));
+                    errorCodesToAdd: null))
+            .UseSnakeCaseNamingConvention());
 
         // Register repositories
         services.AddScoped<ILoginRepository, LoginRepository>();

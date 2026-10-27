@@ -1,0 +1,92 @@
+@page
+@model ClinicManagement.Web.Pages.IndexModel
+@{
+    ViewData["Title"] = "Login / Sign Up";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h3><i class="fas fa-hospital-alt me-2"></i>Clinic Management System</h3>
+            </div>
+            <div class="card-body">
+                <ul class="nav nav-tabs mb-4" id="authTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="login-tab" data-bs-toggle="tab" data-bs-target="#login" type="button">Login</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="signup-tab" data-bs-toggle="tab" data-bs-target="#signup" type="button">Sign Up</button>
+                    </li>
+                </ul>
+
+                @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+                {
+                    <div class="alert alert-danger">@Model.ErrorMessage</div>
+                }
+
+                <div class="tab-content" id="authTabsContent">
+                    <!-- Login Tab -->
+                    <div class="tab-pane fade show active" id="login" role="tabpanel">
+                        <form method="post" asp-page-handler="Login">
+                            <div class="mb-3">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" name="LoginEmail" class="form-control" placeholder="Enter email" required />
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" name="LoginPassword" class="form-control" placeholder="Enter password" required />
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                        </form>
+                    </div>
+
+                    <!-- Sign Up Tab -->
+                    <div class="tab-pane fade" id="signup" role="tabpanel">
+                        <form method="post" asp-page-handler="Signup">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" name="SignupName" class="form-control" placeholder="Enter full name" required />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Date of Birth</label>
+                                    <input type="date" name="SignupBirthDate" class="form-control" required />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" name="SignupEmail" class="form-control" placeholder="Enter email" required />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" name="SignupPassword" class="form-control" placeholder="Enter password" required />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Phone Number</label>
+                                    <input type="tel" name="SignupPhone" class="form-control" placeholder="Enter phone number" />
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Gender</label>
+                                    <select name="SignupGender" class="form-select" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Address</label>
+                                <input type="text" name="SignupAddress" class="form-control" placeholder="Enter address" />
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Sign Up</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

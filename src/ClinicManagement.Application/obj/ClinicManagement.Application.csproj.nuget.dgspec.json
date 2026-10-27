@@ -1,0 +1,170 @@
+{
+  "format": 1,
+  "restore": {
+    "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Application/ClinicManagement.Application.csproj": {}
+  },
+  "projects": {
+    "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Application/ClinicManagement.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Application/ClinicManagement.Application.csproj",
+        "projectName": "ClinicManagement.Application",
+        "projectPath": "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Application/ClinicManagement.Application.csproj",
+        "packagesPath": "/app/.nuget/packages",
+        "outputPath": "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/NuGet.Config",
+          "/app/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/app/.nuget/packages": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Domain/ClinicManagement.Domain.csproj": {
+                "projectPath": "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Domain/ClinicManagement.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.16, 8.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.16, 8.0.16]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/app/.dotnet/sdk/9.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Domain/ClinicManagement.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Domain/ClinicManagement.Domain.csproj",
+        "projectName": "ClinicManagement.Domain",
+        "projectPath": "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Domain/ClinicManagement.Domain.csproj",
+        "packagesPath": "/app/.nuget/packages",
+        "outputPath": "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/src/ClinicManagement.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/modernize-data/studio-data/TNT1001/APP751328/transformed-code/193/studio-workspace/HospitalMgmt07/NuGet.Config",
+          "/app/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "/app/.nuget/packages": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.16, 8.0.16]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.16, 8.0.16]"
+            }
+          ],
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/app/.dotnet/sdk/9.0.300/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

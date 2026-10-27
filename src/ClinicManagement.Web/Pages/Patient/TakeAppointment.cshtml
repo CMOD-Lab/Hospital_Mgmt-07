@@ -1,0 +1,65 @@
+@page
+@model ClinicManagement.Web.Pages.Patient.TakeAppointmentModel
+@{
+    ViewData["Title"] = "Take Appointment";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-calendar-plus me-2"></i>Take Appointment</h2>
+    <a asp-page="/Patient/PatientHome" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-arrow-left me-1"></i>Back
+    </a>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5>Step 1: Select Department</h5>
+        <form method="get">
+            <div class="mb-3">
+                <select name="selectedDept" class="form-select" onchange="this.form.submit()">
+                    <option value="">-- Select Department --</option>
+                    @foreach (var dept in Model.Departments)
+                    {
+                        <option value="@dept.DeptName" selected="@(Model.SelectedDept == dept.DeptName)">
+                            @dept.DeptName
+                        </option>
+                    }
+                </select>
+            </div>
+        </form>
+
+        @if (Model.Doctors.Any())
+        {
+            <h5>Step 2: Select Doctor</h5>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr><th>Name</th><th>Department</th><th>Action</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var doc in Model.Doctors)
+                        {
+                            <tr>
+                                <td>@doc.Name</td>
+                                <td>@doc.DepartmentName</td>
+                                <td>
+                                    <a asp-page="/Patient/ViewDoctors"
+                                       asp-route-doctorId="@doc.DoctorId"
+                                       class="btn btn-primary btn-sm">View Profile</a>
+                                    <a asp-page="/Patient/AppointmentTaker"
+                                       asp-route-doctorId="@doc.DoctorId"
+                                       class="btn btn-success btn-sm">Book</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

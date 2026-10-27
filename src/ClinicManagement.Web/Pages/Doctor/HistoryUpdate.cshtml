@@ -1,0 +1,42 @@
+@page "{appointmentId:int}"
+@model ClinicManagement.Web.Pages.Doctor.HistoryUpdateModel
+@{
+    ViewData["Title"] = "Update Prescription";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-edit me-2"></i>Update Prescription</h2>
+    <a asp-page="/Doctor/PatientHistory" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-arrow-left me-1"></i>Back
+    </a>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-success">@Model.Message</div>
+}
+
+<div class="card shadow">
+    <div class="card-body">
+        <form method="post">
+            <input type="hidden" name="appointmentId" value="@Model.AppointmentId" />
+            <div class="mb-3">
+                <label class="form-label">Disease / Diagnosis</label>
+                <input type="text" name="disease" class="form-control" maxlength="100"
+                       value="@Model.CurrentAppointment?.Disease" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Progress</label>
+                <input type="text" name="progress" class="form-control" maxlength="100"
+                       value="@Model.CurrentAppointment?.Progress" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Prescription</label>
+                <textarea name="prescription" class="form-control" rows="3" maxlength="100">@Model.CurrentAppointment?.Prescription</textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-1"></i>Save Prescription
+            </button>
+        </form>
+    </div>
+</div>

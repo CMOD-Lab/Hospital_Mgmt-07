@@ -1,0 +1,47 @@
+@page "{doctorId:int}"
+@model ClinicManagement.Web.Pages.Patient.DoctorProfileModel
+@{
+    ViewData["Title"] = "Doctor Profile";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-user-md me-2"></i>Doctor Profile</h2>
+    <a asp-page="/Patient/TakeAppointment" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-arrow-left me-1"></i>Back
+    </a>
+</div>
+
+@if (Model.Doctor == null)
+{
+    <div class="alert alert-warning">Doctor not found.</div>
+}
+else
+{
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Dr. @Model.Doctor.Name</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <table class="table table-borderless">
+                        <tr><th>Department:</th><td>@Model.Doctor.DepartmentName</td></tr>
+                        <tr><th>Specialization:</th><td>@Model.Doctor.Specialization</td></tr>
+                        <tr><th>Qualification:</th><td>@Model.Doctor.Qualification</td></tr>
+                        <tr><th>Experience:</th><td>@Model.Doctor.WorkExperience years</td></tr>
+                    </table>
+                </div>
+                <div class="col-md-6">
+                    <table class="table table-borderless">
+                        <tr><th>Phone:</th><td>@Model.Doctor.Phone</td></tr>
+                        <tr><th>Gender:</th><td>@Model.Doctor.Gender</td></tr>
+                        <tr><th>Age:</th><td>@Model.Doctor.Age</td></tr>
+                        <tr><th>Charges/Visit:</th><td>@Model.Doctor.ChargesPerVisit.ToString("C")</td></tr>
+                        <tr><th>Patients Treated:</th><td>@Model.Doctor.PatientsTreated</td></tr>
+                        <tr><th>Repute Index:</th><td>@Model.Doctor.ReputeIndex.ToString("F2")</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}

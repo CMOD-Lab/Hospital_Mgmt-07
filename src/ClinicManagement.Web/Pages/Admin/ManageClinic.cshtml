@@ -1,0 +1,119 @@
+@page
+@model ClinicManagement.Web.Pages.Admin.ManageClinicModel
+@{
+    ViewData["Title"] = "Manage Clinic";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-hospital me-2"></i>Manage Clinic</h2>
+    <a asp-page="/Admin/AdminHome" class="btn btn-outline-secondary btn-sm">
+        <i class="fas fa-arrow-left me-1"></i>Back to Dashboard
+    </a>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Message))
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
+<!-- Tabs for Doctors, Patients, Staff -->
+<ul class="nav nav-tabs mb-4" id="manageTabs" role="tablist">
+    <li class="nav-item">
+        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#doctors">Doctors</button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#patients">Patients</button>
+    </li>
+    <li class="nav-item">
+        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#staff">Staff</button>
+    </li>
+</ul>
+
+<div class="tab-content">
+    <!-- Doctors Tab -->
+    <div class="tab-pane fade show active" id="doctors">
+        <form method="get" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="doctorSearch" value="@Model.DoctorSearch" class="form-control" placeholder="Search doctors..." />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr><th>ID</th><th>Name</th><th>Department</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var doc in Model.Doctors)
+                    {
+                        <tr>
+                            <td>@doc.DoctorId</td>
+                            <td>@doc.Name</td>
+                            <td>@doc.DepartmentName</td>
+                            <td>
+                                <form method="post" asp-page-handler="DeleteDoctor" style="display:inline">
+                                    <input type="hidden" name="doctorId" value="@doc.DoctorId" />
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Remove this doctor?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Patients Tab -->
+    <div class="tab-pane fade" id="patients">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr><th>ID</th><th>Name</th><th>Phone</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in Model.Patients)
+                    {
+                        <tr>
+                            <td>@p.PatientId</td>
+                            <td>@p.Name</td>
+                            <td>@p.Phone</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Staff Tab -->
+    <div class="tab-pane fade" id="staff">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr><th>ID</th><th>Name</th><th>Designation</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var s in Model.Staff)
+                    {
+                        <tr>
+                            <td>@s.StaffId</td>
+                            <td>@s.Name</td>
+                            <td>@s.Designation</td>
+                            <td>
+                                <form method="post" asp-page-handler="DeleteStaff" style="display:inline">
+                                    <input type="hidden" name="staffId" value="@s.StaffId" />
+                                    <button type="submit" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Delete this staff member?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

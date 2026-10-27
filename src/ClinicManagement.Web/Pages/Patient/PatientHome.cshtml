@@ -1,0 +1,64 @@
+@page
+@model ClinicManagement.Web.Pages.Patient.PatientHomeModel
+@{
+    ViewData["Title"] = "Patient Home";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="fas fa-home me-2"></i>Welcome, @Model.PatientInfo?.Name</h2>
+    <a href="/" class="btn btn-outline-danger btn-sm">
+        <i class="fas fa-sign-out-alt me-1"></i>Logout
+    </a>
+</div>
+
+@if (Model.PatientInfo != null)
+{
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-user me-2"></i>My Profile</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tr><th>Name:</th><td>@Model.PatientInfo.Name</td></tr>
+                        <tr><th>Phone:</th><td>@Model.PatientInfo.Phone</td></tr>
+                        <tr><th>Address:</th><td>@Model.PatientInfo.Address</td></tr>
+                        <tr><th>Birth Date:</th><td>@Model.PatientInfo.BirthDate</td></tr>
+                        <tr><th>Age:</th><td>@Model.PatientInfo.Age</td></tr>
+                        <tr><th>Gender:</th><td>@Model.PatientInfo.Gender</td></tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-calendar-check me-2"></i>Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a asp-page="/Patient/TakeAppointment" class="btn btn-primary">
+                            <i class="fas fa-calendar-plus me-1"></i>Take Appointment
+                        </a>
+                        <a asp-page="/Patient/CurrentAppointment" class="btn btn-info text-white">
+                            <i class="fas fa-clock me-1"></i>Current Appointment
+                        </a>
+                        <a asp-page="/Patient/TreatmentHistory" class="btn btn-secondary">
+                            <i class="fas fa-history me-1"></i>Treatment History
+                        </a>
+                        <a asp-page="/Patient/BillsHistory" class="btn btn-warning">
+                            <i class="fas fa-file-invoice-dollar me-1"></i>Bills History
+                        </a>
+                        <a asp-page="/Patient/PatientNotifications" class="btn btn-danger">
+                            <i class="fas fa-bell me-1"></i>Notifications
+                        </a>
+                        <a asp-page="/Patient/PatientFeedback" class="btn btn-dark">
+                            <i class="fas fa-star me-1"></i>Give Feedback
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

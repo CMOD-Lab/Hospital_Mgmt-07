@@ -21,7 +21,7 @@ public class AuthService
     }
 
     /// <summary>Validates login credentials and returns result.</summary>
-    public async Task<LoginResultDto> ValidateLoginAsync(LoginRequestDto request, CancellationToken ct = default)
+    public virtual async Task<LoginResultDto> ValidateLoginAsync(LoginRequestDto request, CancellationToken ct = default)
     {
         try
         {
@@ -46,7 +46,7 @@ public class AuthService
     }
 
     /// <summary>Registers a new patient.</summary>
-    public async Task<LoginResultDto> RegisterPatientAsync(PatientSignupDto dto, CancellationToken ct = default)
+    public virtual async Task<LoginResultDto> RegisterPatientAsync(PatientSignupDto dto, CancellationToken ct = default)
     {
         try
         {

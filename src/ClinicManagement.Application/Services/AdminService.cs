@@ -36,7 +36,7 @@ public class AdminService
     }
 
     /// <summary>Gets admin home statistics.</summary>
-    public async Task<AdminHomeDto> GetAdminHomeInfoAsync(CancellationToken ct = default)
+    public virtual async Task<AdminHomeDto> GetAdminHomeInfoAsync(CancellationToken ct = default)
     {
         try
         {
@@ -69,7 +69,7 @@ public class AdminService
     }
 
     /// <summary>Gets all doctors with optional search.</summary>
-    public async Task<IEnumerable<DoctorListDto>> GetDoctorsAsync(string searchQuery = "", CancellationToken ct = default)
+    public virtual async Task<IEnumerable<DoctorListDto>> GetDoctorsAsync(string searchQuery = "", CancellationToken ct = default)
     {
         try
         {
@@ -94,7 +94,7 @@ public class AdminService
     }
 
     /// <summary>Gets all patients with optional search.</summary>
-    public async Task<IEnumerable<PatientListDto>> GetPatientsAsync(string searchQuery = "", CancellationToken ct = default)
+    public virtual async Task<IEnumerable<PatientListDto>> GetPatientsAsync(string searchQuery = "", CancellationToken ct = default)
     {
         try
         {
@@ -119,7 +119,7 @@ public class AdminService
     }
 
     /// <summary>Gets all staff with optional search.</summary>
-    public async Task<IEnumerable<StaffListDto>> GetStaffAsync(string searchQuery = "", CancellationToken ct = default)
+    public virtual async Task<IEnumerable<StaffListDto>> GetStaffAsync(string searchQuery = "", CancellationToken ct = default)
     {
         try
         {
@@ -144,7 +144,7 @@ public class AdminService
     }
 
     /// <summary>Adds a new doctor.</summary>
-    public async Task<bool> AddDoctorAsync(AddDoctorDto dto, CancellationToken ct = default)
+    public virtual async Task<bool> AddDoctorAsync(AddDoctorDto dto, CancellationToken ct = default)
     {
         try
         {
@@ -191,7 +191,7 @@ public class AdminService
     }
 
     /// <summary>Adds new staff member.</summary>
-    public async Task<bool> AddStaffAsync(AddStaffDto dto, CancellationToken ct = default)
+    public virtual async Task<bool> AddStaffAsync(AddStaffDto dto, CancellationToken ct = default)
     {
         try
         {
@@ -223,7 +223,7 @@ public class AdminService
     }
 
     /// <summary>Soft-deletes a doctor (sets status to 0).</summary>
-    public async Task<bool> DeleteDoctorAsync(int id, CancellationToken ct = default)
+    public virtual async Task<bool> DeleteDoctorAsync(int id, CancellationToken ct = default)
     {
         try
         {
@@ -239,7 +239,7 @@ public class AdminService
     }
 
     /// <summary>Deletes a staff member.</summary>
-    public async Task<bool> DeleteStaffAsync(int id, CancellationToken ct = default)
+    public virtual async Task<bool> DeleteStaffAsync(int id, CancellationToken ct = default)
     {
         try
         {
@@ -255,7 +255,7 @@ public class AdminService
     }
 
     /// <summary>Gets patient details by ID.</summary>
-    public async Task<PatientDto?> GetPatientByIdAsync(int id, CancellationToken ct = default)
+    public virtual async Task<PatientDto?> GetPatientByIdAsync(int id, CancellationToken ct = default)
     {
         try
         {
@@ -285,7 +285,7 @@ public class AdminService
     }
 
     /// <summary>Gets staff details by ID.</summary>
-    public async Task<StaffDto?> GetStaffByIdAsync(int id, CancellationToken ct = default)
+    public virtual async Task<StaffDto?> GetStaffByIdAsync(int id, CancellationToken ct = default)
     {
         try
         {
@@ -311,7 +311,7 @@ public class AdminService
     }
 
     /// <summary>Gets all departments.</summary>
-    public async Task<IEnumerable<DepartmentDto>> GetDepartmentsAsync(CancellationToken ct = default)
+    public virtual async Task<IEnumerable<DepartmentDto>> GetDepartmentsAsync(CancellationToken ct = default)
     {
         try
         {

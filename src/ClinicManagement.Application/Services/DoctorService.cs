@@ -24,7 +24,7 @@ public class DoctorService
     }
 
     /// <summary>Gets doctor profile information.</summary>
-    public async Task<DoctorProfileDto?> GetDoctorInfoAsync(int doctorId, CancellationToken ct = default)
+    public virtual async Task<DoctorProfileDto?> GetDoctorInfoAsync(int doctorId, CancellationToken ct = default)
     {
         try
         {
@@ -59,7 +59,7 @@ public class DoctorService
     }
 
     /// <summary>Gets pending appointments for a doctor.</summary>
-    public async Task<IEnumerable<AppointmentDto>> GetPendingAppointmentsAsync(int doctorId, CancellationToken ct = default)
+    public virtual async Task<IEnumerable<AppointmentDto>> GetPendingAppointmentsAsync(int doctorId, CancellationToken ct = default)
     {
         try
         {
@@ -81,7 +81,7 @@ public class DoctorService
     }
 
     /// <summary>Gets today's appointments for a doctor.</summary>
-    public async Task<IEnumerable<AppointmentDto>> GetTodaysAppointmentsAsync(int doctorId, CancellationToken ct = default)
+    public virtual async Task<IEnumerable<AppointmentDto>> GetTodaysAppointmentsAsync(int doctorId, CancellationToken ct = default)
     {
         try
         {
@@ -106,7 +106,7 @@ public class DoctorService
     }
 
     /// <summary>Approves an appointment.</summary>
-    public async Task<bool> ApproveAppointmentAsync(int appointmentId, CancellationToken ct = default)
+    public virtual async Task<bool> ApproveAppointmentAsync(int appointmentId, CancellationToken ct = default)
     {
         try
         {
@@ -127,7 +127,7 @@ public class DoctorService
     }
 
     /// <summary>Rejects/deletes an appointment.</summary>
-    public async Task<bool> DeleteAppointmentAsync(int appointmentId, CancellationToken ct = default)
+    public virtual async Task<bool> DeleteAppointmentAsync(int appointmentId, CancellationToken ct = default)
     {
         try
         {
@@ -143,7 +143,7 @@ public class DoctorService
     }
 
     /// <summary>Updates prescription for an appointment.</summary>
-    public async Task<bool> UpdatePrescriptionAsync(UpdatePrescriptionDto dto, CancellationToken ct = default)
+    public virtual async Task<bool> UpdatePrescriptionAsync(UpdatePrescriptionDto dto, CancellationToken ct = default)
     {
         try
         {
@@ -165,7 +165,7 @@ public class DoctorService
     }
 
     /// <summary>Gets billable appointments for a doctor.</summary>
-    public async Task<IEnumerable<AppointmentDto>> GetBillableAppointmentsAsync(int doctorId, CancellationToken ct = default)
+    public virtual async Task<IEnumerable<AppointmentDto>> GetBillableAppointmentsAsync(int doctorId, CancellationToken ct = default)
     {
         try
         {
@@ -188,7 +188,7 @@ public class DoctorService
     }
 
     /// <summary>Marks appointment as paid and completed.</summary>
-    public async Task<bool> MarkAsPaidAsync(int doctorId, int appointmentId, CancellationToken ct = default)
+    public virtual async Task<bool> MarkAsPaidAsync(int doctorId, int appointmentId, CancellationToken ct = default)
     {
         try
         {
@@ -208,7 +208,7 @@ public class DoctorService
     }
 
     /// <summary>Marks appointment as unpaid and completed.</summary>
-    public async Task<bool> MarkAsUnpaidAsync(int doctorId, int appointmentId, CancellationToken ct = default)
+    public virtual async Task<bool> MarkAsUnpaidAsync(int doctorId, int appointmentId, CancellationToken ct = default)
     {
         try
         {
@@ -228,7 +228,7 @@ public class DoctorService
     }
 
     /// <summary>Gets patient history for a doctor.</summary>
-    public async Task<IEnumerable<AppointmentDto>> GetPatientHistoryAsync(int doctorId, CancellationToken ct = default)
+    public virtual async Task<IEnumerable<AppointmentDto>> GetPatientHistoryAsync(int doctorId, CancellationToken ct = default)
     {
         try
         {

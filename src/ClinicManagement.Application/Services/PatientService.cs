@@ -30,7 +30,7 @@ public class PatientService
     }
 
     /// <summary>Gets patient profile information.</summary>
-    public async Task<PatientDto?> GetPatientInfoAsync(int patientId, CancellationToken ct = default)
+    public virtual async Task<PatientDto?> GetPatientInfoAsync(int patientId, CancellationToken ct = default)
     {
         try
         {
@@ -60,7 +60,7 @@ public class PatientService
     }
 
     /// <summary>Gets bill history for a patient.</summary>
-    public async Task<IEnumerable<AppointmentDto>> GetBillHistoryAsync(int patientId, CancellationToken ct = default)
+    public virtual async Task<IEnumerable<AppointmentDto>> GetBillHistoryAsync(int patientId, CancellationToken ct = default)
     {
         try
         {
@@ -83,7 +83,7 @@ public class PatientService
     }
 
     /// <summary>Gets current appointment for a patient.</summary>
-    public async Task<AppointmentDto?> GetCurrentAppointmentAsync(int patientId, CancellationToken ct = default)
+    public virtual async Task<AppointmentDto?> GetCurrentAppointmentAsync(int patientId, CancellationToken ct = default)
     {
         try
         {
@@ -107,7 +107,7 @@ public class PatientService
     }
 
     /// <summary>Gets treatment history for a patient.</summary>
-    public async Task<IEnumerable<AppointmentDto>> GetTreatmentHistoryAsync(int patientId, CancellationToken ct = default)
+    public virtual async Task<IEnumerable<AppointmentDto>> GetTreatmentHistoryAsync(int patientId, CancellationToken ct = default)
     {
         try
         {
@@ -131,7 +131,7 @@ public class PatientService
     }
 
     /// <summary>Gets all departments for appointment booking.</summary>
-    public async Task<IEnumerable<DepartmentDto>> GetDepartmentsAsync(CancellationToken ct = default)
+    public virtual async Task<IEnumerable<DepartmentDto>> GetDepartmentsAsync(CancellationToken ct = default)
     {
         try
         {
@@ -151,7 +151,7 @@ public class PatientService
     }
 
     /// <summary>Gets doctors by department name.</summary>
-    public async Task<IEnumerable<DoctorListDto>> GetDoctorsByDepartmentAsync(string deptName, CancellationToken ct = default)
+    public virtual async Task<IEnumerable<DoctorListDto>> GetDoctorsByDepartmentAsync(string deptName, CancellationToken ct = default)
     {
         try
         {
@@ -171,7 +171,7 @@ public class PatientService
     }
 
     /// <summary>Gets doctor profile.</summary>
-    public async Task<DoctorProfileDto?> GetDoctorProfileAsync(int doctorId, CancellationToken ct = default)
+    public virtual async Task<DoctorProfileDto?> GetDoctorProfileAsync(int doctorId, CancellationToken ct = default)
     {
         try
         {
@@ -206,7 +206,7 @@ public class PatientService
     }
 
     /// <summary>Gets free appointment slots for a doctor.</summary>
-    public async Task<IEnumerable<AppointmentDto>> GetFreeSlotsAsync(int doctorId, int patientId, CancellationToken ct = default)
+    public virtual async Task<IEnumerable<AppointmentDto>> GetFreeSlotsAsync(int doctorId, int patientId, CancellationToken ct = default)
     {
         try
         {
@@ -226,7 +226,7 @@ public class PatientService
     }
 
     /// <summary>Books an appointment.</summary>
-    public async Task<bool> BookAppointmentAsync(int doctorId, int patientId, int slotId, CancellationToken ct = default)
+    public virtual async Task<bool> BookAppointmentAsync(int doctorId, int patientId, int slotId, CancellationToken ct = default)
     {
         try
         {
@@ -253,7 +253,7 @@ public class PatientService
     }
 
     /// <summary>Gets patient notification.</summary>
-    public async Task<AppointmentDto?> GetNotificationAsync(int patientId, CancellationToken ct = default)
+    public virtual async Task<AppointmentDto?> GetNotificationAsync(int patientId, CancellationToken ct = default)
     {
         try
         {
@@ -276,7 +276,7 @@ public class PatientService
     }
 
     /// <summary>Gets pending feedback for a patient.</summary>
-    public async Task<AppointmentDto?> GetPendingFeedbackAsync(int patientId, CancellationToken ct = default)
+    public virtual async Task<AppointmentDto?> GetPendingFeedbackAsync(int patientId, CancellationToken ct = default)
     {
         try
         {
@@ -299,7 +299,7 @@ public class PatientService
     }
 
     /// <summary>Submits feedback for an appointment.</summary>
-    public async Task<bool> SubmitFeedbackAsync(int appointmentId, CancellationToken ct = default)
+    public virtual async Task<bool> SubmitFeedbackAsync(int appointmentId, CancellationToken ct = default)
     {
         try
         {

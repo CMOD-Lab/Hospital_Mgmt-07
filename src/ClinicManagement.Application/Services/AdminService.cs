@@ -1,4 +1,5 @@
 using ClinicManagement.Application.DTOs;
+using ClinicManagement.Application.Interfaces;
 using ClinicManagement.Domain.Entities;
 using ClinicManagement.Domain.Enums;
 using ClinicManagement.Domain.Interfaces.Repositories;
@@ -15,6 +16,7 @@ public class AdminService
     private readonly IAppointmentRepository _appointmentRepo;
     private readonly IDepartmentRepository _deptRepo;
     private readonly ILoginRepository _loginRepo;
+    private readonly IEmailService _emailService;
     private readonly ILogger<AdminService> _logger;
 
     public AdminService(
@@ -24,6 +26,7 @@ public class AdminService
         IAppointmentRepository appointmentRepo,
         IDepartmentRepository deptRepo,
         ILoginRepository loginRepo,
+        IEmailService emailService,
         ILogger<AdminService> logger)
     {
         _doctorRepo = doctorRepo;
@@ -32,6 +35,7 @@ public class AdminService
         _appointmentRepo = appointmentRepo;
         _deptRepo = deptRepo;
         _loginRepo = loginRepo;
+        _emailService = emailService;
         _logger = logger;
     }
 
@@ -327,6 +331,110 @@ public class AdminService
         {
             _logger.LogError(ex, "Error getting departments");
             return Enumerable.Empty<DepartmentDto>();
+        }
+    }
+
+    /// <summary>Marks a doctor as out-of-office for a specific date and notifies all scheduled patients.</summary>
+    public virtual async Task<NotificationSummaryDto> MarkDoctorOutOfOfficeAsync(int doctorId, DateOnly outOfOfficeDate, CancellationToken ct = default)
+    {
+        var summary = new NotificationSummaryDto();
+
+        try
+        {
+            // Get doctor information
+            var doctor = await _doctorRepo.GetByIdAsync(doctorId, ct);
+            if (doctor == null)
+            {
+                _logger.LogWarning("Doctor {DoctorId} not found", doctorId);
+                return summary;
+            }
+
+            // Get all appointments for the doctor on the specified date with status Pending or Approved
+            var appointments = await _appointmentRepo.GetByDoctorIdAndDateAsync(doctorId, outOfOfficeDate, ct);
+
+            if (!appointments.Any())
+            {
+                _logger.LogInformation("No appointments found for doctor {DoctorId} on {Date}", doctorId, outOfOfficeDate);
+                return summary;
+            }
+
+            // Send email notification to each patient
+            foreach (var appointment in appointments)
+            {
+                try
+                {
+                    // Skip if patient or login information is missing
+                    if (appointment.Patient == null || appointment.Patient.Login == null)
+                    {
+                        _logger.LogWarning("Patient or login information missing for appointment {AppointmentId}", appointment.AppointId);
+                        if (appointment.PatientId.HasValue)
+                        {
+                            summary.FailureCount++;
+                            summary.FailedPatientIds.Add(appointment.PatientId.Value);
+                        }
+                        continue;
+                    }
+
+                    var patientEmail = appointment.Patient.Login.Email;
+                    if (string.IsNullOrWhiteSpace(patientEmail))
+                    {
+                        _logger.LogWarning("Email address missing for patient {PatientId} in appointment {AppointmentId}",
+                            appointment.PatientId, appointment.AppointId);
+                        if (appointment.PatientId.HasValue)
+                        {
+                            summary.FailureCount++;
+                            summary.FailedPatientIds.Add(appointment.PatientId.Value);
+                        }
+                        continue;
+                    }
+
+                    // Send notification email
+                    var appointmentDateTime = appointment.Date ?? DateTime.MinValue;
+                    var success = await _emailService.SendOutOfOfficeNotificationAsync(
+                        patientEmail,
+                        doctor.Name,
+                        appointmentDateTime,
+                        "804-243-4668",
+                        ct);
+
+                    if (success)
+                    {
+                        summary.SuccessCount++;
+                        _logger.LogInformation("Successfully notified patient {PatientId} for appointment {AppointmentId}",
+                            appointment.PatientId, appointment.AppointId);
+                    }
+                    else
+                    {
+                        summary.FailureCount++;
+                        if (appointment.PatientId.HasValue)
+                        {
+                            summary.FailedPatientIds.Add(appointment.PatientId.Value);
+                        }
+                        _logger.LogError("Failed to send notification to patient {PatientId} for appointment {AppointmentId}",
+                            appointment.PatientId, appointment.AppointId);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    summary.FailureCount++;
+                    if (appointment.PatientId.HasValue)
+                    {
+                        summary.FailedPatientIds.Add(appointment.PatientId.Value);
+                    }
+                    _logger.LogError(ex, "Error sending notification to patient {PatientId} for appointment {AppointmentId}",
+                        appointment.PatientId, appointment.AppointId);
+                }
+            }
+
+            _logger.LogInformation("Out-of-office notifications completed for doctor {DoctorId} on {Date}. Success: {SuccessCount}, Failures: {FailureCount}",
+                doctorId, outOfOfficeDate, summary.SuccessCount, summary.FailureCount);
+
+            return summary;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error processing out-of-office notifications for doctor {DoctorId} on {Date}", doctorId, outOfOfficeDate);
+            return summary;
         }
     }
 }

@@ -18,6 +18,7 @@ public interface IAppointmentRepository
     Task<Appointment?> GetPendingFeedbackByPatientAsync(int patientId, CancellationToken ct = default);
     Task<Appointment?> GetNotificationByPatientAsync(int patientId, CancellationToken ct = default);
     Task<IEnumerable<Appointment>> GetBillableByDoctorAsync(int doctorId, CancellationToken ct = default);
+    Task<IEnumerable<Appointment>> GetByDoctorIdAndDateAsync(int doctorId, DateOnly date, CancellationToken ct = default);
     Task AddAsync(Appointment appointment, CancellationToken ct = default);
     Task UpdateAsync(Appointment appointment, CancellationToken ct = default);
     Task DeleteAsync(int id, CancellationToken ct = default);

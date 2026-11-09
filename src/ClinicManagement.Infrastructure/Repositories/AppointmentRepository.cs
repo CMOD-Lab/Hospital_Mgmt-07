@@ -227,6 +227,28 @@ public class AppointmentRepository : IAppointmentRepository
         }
     }
 
+    public async Task<IEnumerable<Appointment>> GetByDoctorIdAndDateAsync(int doctorId, DateOnly date, CancellationToken ct = default)
+    {
+        try
+        {
+            var targetDateTime = date.ToDateTime(TimeOnly.MinValue);
+            return await _context.Appointments.AsNoTracking()
+                .Include(a => a.Patient)
+                    .ThenInclude(p => p!.Login)
+                .Include(a => a.Doctor)
+                .Where(a => a.DoctorId == doctorId
+                    && a.Date.HasValue
+                    && a.Date.Value.Date == targetDateTime.Date
+                    && (a.AppointmentStatus == AppointmentStatus.Pending || a.AppointmentStatus == AppointmentStatus.Approved))
+                .ToListAsync(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error getting appointments for doctor {DoctorId} on date {Date}", doctorId, date);
+            return Enumerable.Empty<Appointment>();
+        }
+    }
+
     public async Task AddAsync(Appointment appointment, CancellationToken ct = default)
     {
         try

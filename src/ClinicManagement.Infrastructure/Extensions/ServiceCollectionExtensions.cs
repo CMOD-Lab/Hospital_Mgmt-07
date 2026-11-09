@@ -1,6 +1,8 @@
+using ClinicManagement.Application.Interfaces;
 using ClinicManagement.Domain.Interfaces.Repositories;
 using ClinicManagement.Infrastructure.Data;
 using ClinicManagement.Infrastructure.Repositories;
+using ClinicManagement.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,6 +34,9 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDepartmentRepository, DepartmentRepository>();
         services.AddScoped<IStaffRepository, StaffRepository>();
         services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+
+        // Register services
+        services.AddScoped<IEmailService, EmailService>();
 
         return services;
     }

@@ -1,0 +1,51 @@
+@page
+@model ClinicManagement.Web.Pages.Admin.DoctorOutOfOfficeModel
+@{
+    ViewData["Title"] = "Doctor Out of Office";
+}
+
+<div class="container mt-4">
+    <h2>Mark Doctor Out of Office</h2>
+    <p class="text-muted">Select a doctor and date to notify all scheduled patients</p>
+
+    @if (Model.NotificationSummary != null)
+    {
+        <div class="alert @(Model.NotificationSummary.FailureCount == 0 ? "alert-success" : "alert-warning")" role="alert">
+            <h4 class="alert-heading">Notification Summary</h4>
+            <p><strong>Successfully notified:</strong> @Model.NotificationSummary.SuccessCount patient(s)</p>
+            @if (Model.NotificationSummary.FailureCount > 0)
+            {
+                <p><strong>Failed to notify:</strong> @Model.NotificationSummary.FailureCount patient(s)</p>
+                <p><strong>Failed Patient IDs:</strong> @string.Join(", ", Model.NotificationSummary.FailedPatientIds)</p>
+            }
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="alert alert-danger" role="alert">
+            @Model.ErrorMessage
+        </div>
+    }
+
+    <form method="post" class="mt-4">
+        <div class="form-group mb-3">
+            <label for="DoctorId">Select Doctor</label>
+            <select id="DoctorId" name="DoctorId" class="form-control" required>
+                <option value="">-- Select a Doctor --</option>
+                @foreach (var doctor in Model.Doctors)
+                {
+                    <option value="@doctor.DoctorId">@doctor.Name - @doctor.DepartmentName</option>
+                }
+            </select>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="OutOfOfficeDate">Out of Office Date</label>
+            <input type="date" id="OutOfOfficeDate" name="OutOfOfficeDate" class="form-control" required />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Send Notifications</button>
+        <a href="/Admin/AdminHome" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
